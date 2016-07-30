@@ -1,15 +1,18 @@
 defmodule Pythia.SearchController do
   use Pythia.Web, :controller
+  alias Pythia.Query
   alias Pythia.Search
+  alias Pythia.Data
+
 
   def index(conn, _params) do
-    changeset = Search.changeset(%Search{})
-    render conn, "index.html", changeset: changeset
+    render conn, "index.html"
   end
 
   def create(conn, %{"search" => search_params}) do
-    changeset = Search.changeset(%Search{})
-    render conn,"index.html", changeset: changeset
+    conn
+     |> assign(:result, "#{Query.database_search(search_params["search"])}")
+     |> render("index.html")
   end
-end
 
+end

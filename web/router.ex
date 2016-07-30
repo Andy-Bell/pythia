@@ -17,8 +17,9 @@ defmodule Pythia.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", SearchController, :index
-    resources "/search", SearchController, only: [:index, :create, :show]
+    resources "/search", SearchController, only: [:index, :new, :create, :show]
   end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", Pythia do
