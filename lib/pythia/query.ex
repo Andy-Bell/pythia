@@ -4,7 +4,7 @@ defmodule Pythia.Query do
   use Ecto.Schema
 
   def database_search(query) do
-    Pythia.Repo.all(from d in Data, select: d.title)
+    Pythia.Repo.all(from d in Data, select: d.url)
     |>Enum.map(fn x -> if includes_query(x, query) do x end end)
     |>Enum.drop_while(fn x -> x == nil end)
   end

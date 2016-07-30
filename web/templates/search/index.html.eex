@@ -4,3 +4,11 @@
 </div>
 <%= submit "Consult Pythia", class: "btn btn-primary" %></br>
 <% end %>
+
+<%= if assigns[:search_result] do %>
+<ul>
+<%= Enum.map(@search_result, fn x -> %>
+ <li> <%= x %> </li>
+ <% end )%>
+</ul>
+<% end %>
