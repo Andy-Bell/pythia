@@ -10,7 +10,7 @@
 <ul>
 <%= Enum.map(@search_result, fn x -> %>
   <%= unless x == nil do %>
-  <li> <%= x %> </li>
+  <li> <a href=<%= x %>><%= x %> </a></li>
       <% end %>
  <% end )%>
 </ul>
