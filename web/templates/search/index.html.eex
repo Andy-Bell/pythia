@@ -13,7 +13,7 @@
   <li> <a href=<%= x.url %>><%= x.title %> </a>
     <p> <%= x.url %> </p>
     <p> <%= x.description %></p>
-    </li>
+  </li><br>
       <% end %>
  <% end )%>
 </ul>

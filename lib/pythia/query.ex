@@ -23,7 +23,6 @@ defmodule Pythia.Query do
   defp search_parameters(data, keyword) do
     [data.title, data.description, data.url]
     |> Enum.map(&includes_query(&1, keyword))
-    |> IO.inspect
     |> Enum.any?(&(&1 == true))
     # (includes_query(data.title, keyword) || includes_query(data.description, keyword) || includes_query(data.url, keyword))
   end
