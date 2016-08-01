@@ -9,7 +9,8 @@ defmodule Pythia.Query do
   |> Enum.map(fn x -> database_search(x) end)
   |> List.flatten
   |> Enum.uniq
-  # |> Ranking.score(keyword)
+  |> Ranking.score(query)
+  # |> Enum.drop_while(fn x -> x == nil end)
   end
 
   defp database_search(keyword) do
