@@ -6,7 +6,6 @@ defmodule Pythia.Data do
     field :title, :string
     field :description, :string
     field :url, :string
-    field :full_text, :string
 
     timestamps
   end
