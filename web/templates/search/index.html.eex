@@ -1,6 +1,21 @@
-<%= form_for @changeset, search_path(@conn, :create), fn f -> %>
+<%= form_for @conn, search_path(@conn, :create), [name: :search], fn f -> %>
 <div class="form-group">
   <%= text_input f, :search, placeholder: "Enter your search", class: "form-control" %>
 </div>
-<%= submit "Consult Pythia", class: "btn btn-primary" %>
+<%= submit "Consult Pythia", class: "btn btn-primary" %></br>
+<% end %>
+
+<%= if assigns[:search_result] do %>
+
+<ul>
+<%= Enum.map(@search_result, fn x -> %>
+  <%= unless x == nil do %>
+  <li> <a href=<%= x.url %>><%= x.title %> </a>
+    <p> <%= x.url %> </p>
+    <p> <%= x.description %></p>
+  </li><br>
+      <% end %>
+ <% end )%>
+</ul>
+
 <% end %>

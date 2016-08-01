@@ -36,8 +36,5 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :pythia, Pythia.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: System.get_env("USER"),
-  password: "",
-  database: "delphi_dev",
-  hostname: "localhost",
+  database: "delphi_test",
   pool_size: 10
