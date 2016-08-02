@@ -1,39 +1,54 @@
 defmodule Pythia.Ranking do
-  import Ecto.Query
   use Ecto.Schema
 
   @url_score 1.0
   @title_score 0.4
   @description_score 0.1
   @zero_value 0.0
-  def score(data, keyword) do
+  def ranked_list(data, keyword) do
     data_filter(data)
     |> Enum.map( fn(x) -> {x, assign_score(x, keyword)} end)
     |> Enum.sort_by(&elem(&1, 1), &>=/2)
     |> Enum.map(fn({x,_y}) -> x end)
   end
 
-  def assign_score(data, keyword) do
-      [data.url, data.title, data.description]
+  defp assign_score(data, keyword) do
+      [{:url, data.url}, {:title, data.title}, {:description, data.description}]
       |> Enum.map(&calculate_score(&1, keyword))
+      |> Enum.sum
   end
 
   defp calculate_score(params, keyword) do
-    unless params == nil do
-      if String.contains?(String.downcase(params), keyword) do fn 
-        %{url: _} ->  @url_score 
-        %{title: _} -> @title_score 
-        %{description: _} -> @description_score end
-      else
-        @zero_value
-      end
+    cond do
+      params == nil -> @zero_value
+      {:title, nil} == params -> @zero_value
+      {:description, nil} == params -> @zero_value
+      string_match(params,keyword) -> check_params(params)
+      true -> @zero_value
     end
   end
   
+  defp check_params({:url, _}), do: @url_score
+  defp check_params({:title, _}), do: @title_score
+  defp check_params({:description, _}), do: @description_score
+  
   defp data_filter(data) do
     data
-    |>Enum.map(&Enum.drop_while([&1], fn(x) -> x == nil end))
-    |>List.flatten
+    |>Enum.map(&Enum.drop_while([&1], fn(x) -> x == nil end)) 
+    |>List.flatten 
+  end
+
+  defp convert_lowercase(string), do: String.downcase(string)
+
+  defp extract_from_tuple(tuple) do
+    elem(tuple,1)
+  end
+
+  defp string_match(params, keyword) do
+    params
+    |>extract_from_tuple
+    |>convert_lowercase
+    |>String.contains?(keyword)
   end
 end
 
