@@ -34,7 +34,7 @@ defmodule Pythia.Ranking do
   
   defp data_filter(data) do
     data
-    |>Enum.map(&Enum.drop_while([&1], fn(x) -> x == nil end)) 
+    |>Enum.map(&drop_when_nil([&1]))
     |>List.flatten 
   end
 
@@ -49,6 +49,10 @@ defmodule Pythia.Ranking do
     |>extract_from_tuple
     |>convert_lowercase
     |>String.contains?(keyword)
+  end
+
+  defp drop_when_nil(list) do
+    Enum.reject(list, &is_nil(&1))
   end
 end
 
