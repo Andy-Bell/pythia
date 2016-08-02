@@ -7,20 +7,17 @@ defmodule Pythia.Ranking do
   @description_score 0.1
 
   def score(data, keyword) do
-    Enum.map(data, fn(x) -> {x, assign_score(x, keyword)} end)
+    data_filter(data)
+    |> Enum.map( fn(x) -> {x, assign_score(x, keyword)} end)
     |> Enum.sort_by(&elem(&1, 1), &>=/2)
     |> Enum.map(fn({x,_y}) -> x end)
   end
 
   def assign_score(data, keyword) do
-    unless data == nil do
       total_ranking = 0.0
       |> if_url(data, keyword)
-    |> IO.inspect
       |> if_title(data, keyword)
-    |> IO.inspect
       |> if_description(data, keyword)
-    end
   end
 
   defp if_url(total_ranking, data, keyword) do
@@ -58,5 +55,11 @@ defmodule Pythia.Ranking do
       total_ranking
     end
   end
-
+  
+  def data_filter(data) do
+    data
+    |>Enum.map(&Enum.drop_while([&1], fn(x) -> x == nil end))
+    |>List.flatten
+  end
 end
+
