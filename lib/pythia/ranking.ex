@@ -5,11 +5,12 @@ defmodule Pythia.Ranking do
   @title_score 0.4
   @description_score 0.1
   @zero_value 0.0
+
   def ranked_list(data, keyword) do
     data_filter(data)
-    |> Enum.map( fn(x) -> {x, assign_score(x, keyword)} end)
+    |> Enum.map( &create_tuple(&1, keyword))
     |> Enum.sort_by(&elem(&1, 1), &>=/2)
-    |> Enum.map(fn({x,_y}) -> x end)
+    |> Enum.map(&extract_from_tuple(&1,0))
   end
 
   defp assign_score(data, keyword) do
@@ -31,6 +32,12 @@ defmodule Pythia.Ranking do
   defp check_params({:url, _}), do: @url_score
   defp check_params({:title, _}), do: @title_score
   defp check_params({:description, _}), do: @description_score
+
+  defp convert_lowercase(string), do: String.downcase(string)
+
+  defp create_tuple(data, keyword) do
+    {data, assign_score(data,keyword)}
+  end
   
   defp data_filter(data) do
     data
@@ -38,21 +45,20 @@ defmodule Pythia.Ranking do
     |>List.flatten 
   end
 
-  defp convert_lowercase(string), do: String.downcase(string)
-
-  defp extract_from_tuple(tuple) do
-    elem(tuple,1)
+  defp drop_when_nil(list) do
+    Enum.reject(list, &is_nil(&1))
+  end
+  
+  defp extract_from_tuple(tuple, position) do
+    elem(tuple,position)
   end
 
   defp string_match(params, keyword) do
     params
-    |>extract_from_tuple
+    |>extract_from_tuple(1)
     |>convert_lowercase
     |>String.contains?(keyword)
   end
 
-  defp drop_when_nil(list) do
-    Enum.reject(list, &is_nil(&1))
-  end
 end
 
