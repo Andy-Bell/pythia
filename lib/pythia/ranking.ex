@@ -5,7 +5,7 @@ defmodule Pythia.Ranking do
   @url_score 1.0
   @title_score 0.4
   @description_score 0.1
-
+  @zero_value 0.0
   def score(data, keyword) do
     data_filter(data)
     |> Enum.map( fn(x) -> {x, assign_score(x, keyword)} end)
@@ -14,18 +14,18 @@ defmodule Pythia.Ranking do
   end
 
   def assign_score(data, keyword) do
-      total_ranking = 0.0
-      |> calculate_score(data.url, keyword)
-      |> calculate_score(data.title, keyword)
-      |> calculate_score(data.description, keyword)
+      [data.url, data.title, data.description]
+      |> Enum.map(&calculate_score(&1, keyword))
   end
 
-  defp calculate_score(total_ranking, params, keyword) do
+  defp calculate_score(params, keyword) do
     unless params == nil do
       if String.contains?(String.downcase(params), keyword) do fn 
-        %{url: _} -> total_ranking + @url_score 
-        %{title: _} -> total_ranking + @title_score 
-        %{description: _} -> total_ranking + @description_score end
+        %{url: _} ->  @url_score 
+        %{title: _} -> @title_score 
+        %{description: _} -> @description_score end
+      else
+        @zero_value
       end
     end
   end
