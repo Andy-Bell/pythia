@@ -5,11 +5,11 @@ defmodule Pythia.Query do
   use Ecto.Schema
 
   def split_string(query) do
-  String.split(query, " ")
-  |> Enum.map(fn x -> database_search(x) end)
-  |> List.flatten
-  |> Enum.uniq
-  |> Ranking.ranked_list(query)
+    String.split(query, " ")
+    |> Enum.map(fn x -> database_search(x) end)
+    |> List.flatten
+    |> Enum.uniq
+    |> Ranking.ranked_list(query)
   end
 
   defp database_search(keyword) do
