@@ -1,6 +1,7 @@
 defmodule Pythia.Query do
   import Ecto.Query
   alias Pythia.Data
+  alias Pythia.Ranking
   use Ecto.Schema
 
   def split_string(query) do
@@ -8,6 +9,7 @@ defmodule Pythia.Query do
   |> Enum.map(fn x -> database_search(x) end)
   |> List.flatten
   |> Enum.uniq
+  |> Ranking.ranked_list(query)
   end
 
   defp database_search(keyword) do
@@ -24,6 +26,5 @@ defmodule Pythia.Query do
     [data.title, data.description, data.url]
     |> Enum.map(&includes_query(&1, keyword))
     |> Enum.any?(&(&1 == true))
-    # (includes_query(data.title, keyword) || includes_query(data.description, keyword) || includes_query(data.url, keyword))
   end
 end
