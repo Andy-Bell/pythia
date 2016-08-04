@@ -7,12 +7,12 @@
 
 <%= if assigns[:search_result] do %>
 
-<ul>
+<ul class="link-display">
 <%= Enum.map(@search_result, fn x -> %>
   <%= unless x == nil do %>
-  <li class="result"> <a href=<%= x.url %>><%= x.title %> </a>
-    <p> <%= x.url %> </p>
-    <p> <%= x.description %></p>
+  <li class="title-display"> <a href=<%= x.url %><p><%= x.title %></p> </a>
+    <p class="url-display"> <%= x.url %> </p>
+    <p class="description-display"> <%= x.description %></p>
   </li><br>
       <% end %>
  <% end )%>

@@ -13,8 +13,8 @@
 
   <body>
     <div class="container">
-      <header class="header">
-        <h1>PYTHIA</h1>
+      <header >
+        <img class="pythia-logo" src="images/pythia.png" alt="Pythia Logo">
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

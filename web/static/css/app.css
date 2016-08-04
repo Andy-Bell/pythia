@@ -1,1 +1,34 @@
 /* This file is for your main application css. */
+
+img.pythia-logo {
+    display: block;
+    margin: 0 auto;
+}
+
+.btn.btn-primary {
+  background-color: #2E86AB;
+  display: block;
+  margin: 0 auto;
+}
+
+.form-control {
+  text-align: left;
+}
+
+.link-display {
+  list-style: lower-greek;
+}
+
+.title-display {
+  text-align: center;
+  color: #2E86AB;
+}
+
+.url-display {
+  text-align: center;
+  color: #3B1F2B;
+}
+
+.description-display {
+  color: #3B1F2B;
+}
