@@ -12,8 +12,5 @@ config :logger, level: :warn
 # Configure your database
 config :pythia, Pythia.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: System.get_env("USER"),
-  password: "",
   database: "delphi_test",
-  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
