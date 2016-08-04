@@ -10,7 +10,8 @@ defmodule Pythia.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     preferred_cli_env: [espec: :test]]
   end
 
   # Configuration for the OTP application.
@@ -18,9 +19,16 @@ defmodule Pythia.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Pythia, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+     applications: app_list(Mix.env)]
   end
+
+  def app_list do
+    [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+                   :phoenix_ecto, :postgrex]
+  end
+
+  def app_list(:test), do: [:hound | app_list]
+  def app_list(_), do: app_list
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -38,7 +46,10 @@ defmodule Pythia.Mixfile do
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:hound, "~> 1.0", only: :test},
+      {:espec, "~> 0.8.28", only: :test},
+      {:espec_phoenix, "~> 0.3.0", only: :test, app: false}
     ]
   end
 
@@ -52,7 +63,7 @@ defmodule Pythia.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"],
+      "test": ["ecto.create --quiet", "ecto.migrate", "test", "espec"],
       "server.start": ["deps.get", "deps.compile", "compile", "phoenix.server"],
       "routes": ["phoenix.routes"]
     ]

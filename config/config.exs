@@ -9,6 +9,8 @@ use Mix.Config
 config :pythia,
   ecto_repos: [Pythia.Repo]
 
+config :hound, driver: "phantomjs", app_host: "http://localhost", app_port: 4000
+
 # Configures the endpoint
 config :pythia, Pythia.Endpoint,
   url: [host: "localhost"],

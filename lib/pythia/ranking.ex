@@ -9,7 +9,7 @@ defmodule Pythia.Ranking do
   def ranked_list(data, keyword) do
     data_filter(data)
     |> Enum.map( &create_tuple(&1, keyword))
-    |> Enum.sort_by(&elem(&1, 1), &>=/2)
+    |> Enum.sort_by(&extract_from_tuple(&1, 1), &>=/2)
     |> Enum.map(&extract_from_tuple(&1,0))
   end
 
@@ -28,7 +28,7 @@ defmodule Pythia.Ranking do
       true -> @zero_value
     end
   end
-  
+
   defp check_params({:url, _}), do: @url_score
   defp check_params({:title, _}), do: @title_score
   defp check_params({:description, _}), do: @description_score
@@ -38,17 +38,17 @@ defmodule Pythia.Ranking do
   defp create_tuple(data, keyword) do
     {data, assign_score(data,keyword)}
   end
-  
+
   defp data_filter(data) do
     data
     |>Enum.map(&drop_when_nil([&1]))
-    |>List.flatten 
+    |>List.flatten
   end
 
   defp drop_when_nil(list) do
     Enum.reject(list, &is_nil(&1))
   end
-  
+
   defp extract_from_tuple(tuple, position) do
     elem(tuple,position)
   end
@@ -61,4 +61,3 @@ defmodule Pythia.Ranking do
   end
 
 end
-
