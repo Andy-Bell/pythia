@@ -17,25 +17,24 @@ Pythia & Delphi form the two main parts of our search engine, the web crawler an
  - Faster than Ruby or Python
  - As it is built on Erlang, it is easy to spawn new processes to create multi-threaded process systems
 
- As well as Elixir, we also used:
+As well as Elixir, we also used:
  -  ESpec and Hound to test the code
  -  Phoenix Framework to build the query engine
  -  Ecto and Postgres to store the urls and the collected information
 
 ![Pythia&Delphi](web/static/assets/images/pythia&delphi.png)
 
-- Video to project presentation:
+- Video to project presentation (coming soon)
 - [Link to project presentation](https://docs.google.com/presentation/d/10LDF3dIhCKR54XAlErlkmO9t6Vwak3I8doAshWGfozQ/edit#slide=id.g158daf373d_0_41)
 
 #### Delphi
 
 ##### How to set up
 ```
-$ clone this repo locally
+$ clone the repo locally (https://github.com/Andy-Bell/delphi)
 $ cd delphi
 $ mix deps.get
 $ mix ecto.create && mix ecto.migrate
-
 ```
 
 Delphi includes 3 main parts:
@@ -72,9 +71,9 @@ $ mix deps.get
 $ npm install
 
 ```
-### How to run
+#### How to run
 ```
-$ mix phoenix.server
+$ mix server.start
 Visit http://localhost:4000 from your browser.
 ```
 We used the Phoenix Framework to build Pythia. It is very similar to Ruby on Rails Framework but provides more flexibility around customisation.
