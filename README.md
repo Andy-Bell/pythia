@@ -74,7 +74,7 @@ $ npm install
 
 ##### How to run the tests
 
-Open two terminals, and start phantomjs one terminal:
+Open two terminals, and start phantomjs on one terminal:
 ```
 $ phantomjs --wd
 
