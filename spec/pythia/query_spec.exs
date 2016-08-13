@@ -12,19 +12,19 @@ defmodule QuerySpec do
 
   it "calls Pythia.Ranking when split_string is run" do
     allow(Pythia.Ranking).to accept(:ranked_list, fn(a, b) -> list_back end)
-    Pythia.Query.split_string("code")
+    Pythia.Query.list_search_results("code")
     expect Pythia.Ranking
     |> to(accepted :ranked_list, [list_back, "code"])
   end
 
   it "calls Pythia.Ranking with correct arguments" do
     allow(Pythia.Ranking).to accept(:ranked_list, fn(a, b) -> Enum.reverse(list_back) end)
-    expect Pythia.Query.split_string("makers")
+    expect Pythia.Query.list_search_results("makers")
     |> to(eq Enum.reverse(list_back))
   end
 
   it "makes a call to Pythia.Repo" do
-    Pythia.Query.split_string("code")
+    Pythia.Query.list_search_results("code")
     expect Pythia.Repo
     |> to(accepted :all)
   end

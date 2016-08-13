@@ -4,7 +4,7 @@ defmodule Pythia.Query do
   alias Pythia.Ranking
   use Ecto.Schema
 
-  def split_string(query) do
+  def list_search_results(query) do
     String.split(query, " ")
     |> Enum.map(fn x -> database_search(x) end)
     |> List.flatten
