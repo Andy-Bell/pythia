@@ -9,7 +9,7 @@ defmodule Pythia.SearchController do
 
   def create(conn, %{"search" => search_params}) do
     conn
-    |> assign(:search_result, Query.split_string(search_params["search"]))
+    |> assign(:search_result, Query.list_search_results(search_params["search"]))
     |> render("index.html")
   end
 

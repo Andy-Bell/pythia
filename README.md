@@ -71,6 +71,20 @@ $ mix deps.get
 $ npm install
 
 ```
+
+##### How to run the tests
+
+Open two terminals, and start phantomjs on one terminal:
+```
+$ phantomjs --wd
+
+```
+Run the tests on the other terminal:
+```
+$ mix test
+
+```
+
 #### How to run
 ```
 $ mix server.start
@@ -83,7 +97,9 @@ Pythia handles the user queries, and returning relevant results to the user. It 
 - Accessing the database which stores the scraped information from the urls, and return all the relevant links and information stored.
 - Ranking the results based on a simple algorithm which involves checking whether the keyword is included in the url, title and/or the description.
 
+
 ![Pythia&Delphi](web/static/assets/images/Pythia search bar.png)
+
 
 #### Next steps:
 Improving spider efficiency and limitation , and the search algorithm

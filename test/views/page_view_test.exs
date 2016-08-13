@@ -28,7 +28,7 @@ defmodule Pythia.PageViewTest do
     |> find_within_element(:class, "btn")
     |> click
 
-    assert element_displayed?({:class, "result"})
+    assert element_displayed?({:class, "link-display"})
 
   end
 
